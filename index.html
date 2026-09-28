@@ -17,7 +17,26 @@
     background: #f4f4f5;
   }
   * { box-sizing: border-box; }
-  body { margin: 0; padding: 24px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='800' viewBox='0 0 1200 800'%3E%3Crect width='1200' height='800' fill='%23fdf6f0'/%3E%3Cg fill='none' stroke='%23e3006a' stroke-width='6' stroke-linecap='round' opacity='0.10'%3E%3Cpath d='M150 120 q-20 60 30 95 a45 45 0 0 0 60-20 q25-45-15-75' /%3E%3C/g%3E%3Cg fill='none' stroke='%231a171b' stroke-width='6' stroke-linecap='round' opacity='0.08'%3E%3Cpath d='M950 150 q40 20 55 65 a45 45 0 0 1-45 45 q-50 0-55-55' /%3E%3C/g%3E%3Cg fill='none' stroke='%235db1e4' stroke-width='6' stroke-linecap='round' opacity='0.10'%3E%3Cpath d='M250 600 a40 40 0 1 0 70 10 a40 40 0 1 0 60-20' /%3E%3C/g%3E%3Cg fill='none' stroke='%23fbbb00' stroke-width='6' stroke-linecap='round' opacity='0.12'%3E%3Cpath d='M880 620 l0-80 M850 570 l60 0 M858 560 l44 20 M894 560 l-44 20' /%3E%3C/g%3E%3Cg fill='none' stroke='%23b4c30c' stroke-width='6' stroke-linecap='round' opacity='0.10'%3E%3Cpath d='M580 90 q30-35 70-10 M590 100 q40-20 65 15' /%3E%3C/g%3E%3Cg fill='%23e3006a' opacity='0.07'%3E%3Ccircle cx='80' cy='400' r='26'/%3E%3Ccircle cx='1120' cy='380' r='20'/%3E%3Ccircle cx='500' cy='730' r='22'/%3E%3Ccircle cx='620' cy='480' r='16'/%3E%3C/g%3E%3Cg fill='none' stroke='%23526bac' stroke-width='5' stroke-linecap='round' opacity='0.09'%3E%3Cpath d='M1050 720 q25-25 55-5 M1058 728 q30-18 42 10' /%3E%3C/g%3E%3Cg fill='none' stroke='%23e3006a' stroke-width='5' stroke-linecap='round' opacity='0.10'%3E%3Cpath d='M160 720 h100 a15 15 0 0 1 15 15 v45 h-115 v-45 a15 15 0 0 1 15-15 z M175 720 v-30 a35 30 0 0 1 70 0 v30' /%3E%3C/g%3E%3C/svg%3E"); background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed; }
+  /* Fond photo : image "fond.jpg" déposée dans le même dossier que index.html.
+     Le pseudo-élément ::before crée un voile blanc translucide pour garder le texte lisible. */
+  body { margin: 0; padding: 24px; background-color: #f4f4f5; }
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    background-image: url("fond.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: rgba(253, 246, 240, 0.82);
+  }
 
   /* Logo institutionnelle recréé (fond blanc : version de base de la charte) */
   .logo { display: inline-block; line-height: 1; padding: 14px 18px; background: #fff; }
