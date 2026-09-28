@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Simulateur Titre Restaurant – Ville de Roubaix</title>
+<style>
+  :root {
+    --rose: #e3006a;
+    --noir: #1a171b;
+    --jaune: #fbbb00;
+    --bleu: #5db1e4;
+    --vert: #b4c30c;
+    --violet: #526bac;
+    font-family: "Neo Sans", Helvetica, "Segoe UI", system-ui, sans-serif;
+    color: var(--noir);
+    background: #f4f4f5;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 24px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='800' viewBox='0 0 1200 800'%3E%3Crect width='1200' height='800' fill='%23fdf6f0'/%3E%3Cg fill='none' stroke='%23e3006a' stroke-width='6' stroke-linecap='round' opacity='0.10'%3E%3Cpath d='M150 120 q-20 60 30 95 a45 45 0 0 0 60-20 q25-45-15-75' /%3E%3C/g%3E%3Cg fill='none' stroke='%231a171b' stroke-width='6' stroke-linecap='round' opacity='0.08'%3E%3Cpath d='M950 150 q40 20 55 65 a45 45 0 0 1-45 45 q-50 0-55-55' /%3E%3C/g%3E%3Cg fill='none' stroke='%235db1e4' stroke-width='6' stroke-linecap='round' opacity='0.10'%3E%3Cpath d='M250 600 a40 40 0 1 0 70 10 a40 40 0 1 0 60-20' /%3E%3C/g%3E%3Cg fill='none' stroke='%23fbbb00' stroke-width='6' stroke-linecap='round' opacity='0.12'%3E%3Cpath d='M880 620 l0-80 M850 570 l60 0 M858 560 l44 20 M894 560 l-44 20' /%3E%3C/g%3E%3Cg fill='none' stroke='%23b4c30c' stroke-width='6' stroke-linecap='round' opacity='0.10'%3E%3Cpath d='M580 90 q30-35 70-10 M590 100 q40-20 65 15' /%3E%3C/g%3E%3Cg fill='%23e3006a' opacity='0.07'%3E%3Ccircle cx='80' cy='400' r='26'/%3E%3Ccircle cx='1120' cy='380' r='20'/%3E%3Ccircle cx='500' cy='730' r='22'/%3E%3Ccircle cx='620' cy='480' r='16'/%3E%3C/g%3E%3Cg fill='none' stroke='%23526bac' stroke-width='5' stroke-linecap='round' opacity='0.09'%3E%3Cpath d='M1050 720 q25-25 55-5 M1058 728 q30-18 42 10' /%3E%3C/g%3E%3Cg fill='none' stroke='%23e3006a' stroke-width='5' stroke-linecap='round' opacity='0.10'%3E%3Cpath d='M160 720 h100 a15 15 0 0 1 15 15 v45 h-115 v-45 a15 15 0 0 1 15-15 z M175 720 v-30 a35 30 0 0 1 70 0 v30' /%3E%3C/g%3E%3C/svg%3E"); background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed; }
+
+  /* Logo institutionnelle recréé (fond blanc : version de base de la charte) */
+  .logo { display: inline-block; line-height: 1; padding: 14px 18px; background: #fff; }
+  .logo .ville { font-size: 0.72rem; letter-spacing: 0.28em; font-weight: 400; }
+  .logo .roubaix { font-size: 1.9rem; font-weight: 900; letter-spacing: 0.02em; margin-top: 2px; color: var(--noir); }
+  .logo .roubaix .x {
+    color: var(--rose);
+    display: inline-block;
+    transform: rotate(0deg);
+  }
+
+  .card {
+    max-width: 780px; margin: 0 auto; background: #fff;
+    border-top: 6px solid var(--rose);
+    box-shadow: 0 6px 24px rgba(26, 23, 27, 0.14);
+  }
+  .card-header {
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+    padding: 20px 28px; border-bottom: 1px solid #e8e8ea;
+  }
+  .card-header h1 { margin: 0; font-size: 1.3rem; font-weight: 900; }
+  .card-header h1 span { color: var(--rose); }
+  .card-header .baseline { width: 100%; font-size: 0.82rem; color: #6b6b70; margin-top: 2px; }
+  .card-body { padding: 24px 28px 28px; }
+
+  .bloc {
+    border: 2px solid var(--noir); border-radius: 0;
+    padding: 18px; margin-bottom: 20px; position: relative; background: #fff;
+  }
+  .bloc .tag {
+    position: absolute; top: -12px; left: 14px; background: var(--noir); color: #fff;
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase; padding: 4px 12px;
+  }
+  label { display: block; font-weight: 700; margin-bottom: 6px; font-size: 0.9rem; }
+  input[type=number] {
+    width: 100%; max-width: 260px; padding: 10px 12px; font-size: 1.05rem;
+    font-family: inherit; border: 2px solid var(--noir); border-radius: 0; outline: none; background: #fafafa;
+  }
+  input[type=number]:focus { border-color: var(--rose); background: #fff; }
+
+  .resultats { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 14px; }
+  .res-box { flex: 1; min-width: 150px; padding: 12px 14px; text-align: center; color: #fff; }
+  .res-box .label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; opacity: 0.9; }
+  .res-box .value { font-size: 1.35rem; font-weight: 900; margin-top: 4px; }
+  .res-box.agent { background: var(--rose); }
+  .res-box.employeur { background: var(--noir); }
+  .res-box.total { background: var(--violet); }
+
+  .grand-total {
+    background: var(--rose); color: #fff; padding: 18px 22px;
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;
+  }
+  .grand-total .label { font-size: 0.95rem; font-weight: 700; letter-spacing: 0.03em; }
+  .grand-total .value { font-size: 1.75rem; font-weight: 900; }
+
+  .barres { display: flex; height: 8px; max-width: 780px; margin: 0 auto; }
+  .barres div { flex: 1; }
+
+  .signature { text-align: right; margin-top: 18px; font-size: 0.85rem; color: #1a171b; font-weight: 700; }
+  .note { font-size: 0.78rem; color: #6b6b70; margin-top: 14px; text-align: center; }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="card-header">
+    <div>
+      <h1>Simulateur <span>Titre Restaurant</span></h1>
+
+    </div>
+    <div class="logo">
+      <div class="ville">VILLE DE</div>
+      <div class="roubaix">ROUBAI<span class="x">X</span></div>
+    </div>
+  </div>
+
+  <div class="card-body">
+
+    <div class="bloc">
+      <span class="tag">Agent</span>
+      <label for="pm1">Nombre de pauses méridiennes par mois</label>
+      <input id="pm1" type="number" min="0" step="1" value="0" />
+      <div class="resultats">
+        <div class="res-box agent"><div class="label">Participation agent<br /><span style="font-weight:400; text-transform:none; letter-spacing:0">(mensuelle · 40 %)</span></div><div class="value" id="pa1">0,00 €</div></div>
+        <div class="res-box employeur"><div class="label">Participation employeur<br /><span style="font-weight:400; text-transform:none; letter-spacing:0">(mensuelle · 60 %)</span></div><div class="value" id="pe1">0,00 €</div></div>
+        <div class="res-box total"><div class="label">Total</div><div class="value" id="pt1">0,00 €</div></div>
+      </div>
+    </div>
+
+    <div class="grand-total">
+      <span class="label">Somme des participations (agent + employeur)</span>
+      <span class="value" id="grand">0,00 €</span>
+    </div>
+
+    <p class="note">Cette estimation est fournie à titre indicatif. Elle est calculée sur la base d'un mois de travail sans absence.<br />Les absences (maladie, congés) ne sont pas prises en compte dans ce calcul ; elles seront déduites lors de la régularisation.<br />Les jours de télétravail sont assimilés à des jours travaillés et incluent la pause méridienne.</p>
+    <p class="signature">Direction des Ressources Humaines</p>
+  </div>
+</div>
+
+<div class="barres">
+  <div style="background:#e3006a"></div>
+  <div style="background:#1a171b"></div>
+  <div style="background:#fbbb00"></div>
+  <div style="background:#5db1e4"></div>
+  <div style="background:#b4c30c"></div>
+  <div style="background:#526bac"></div>
+</div>
+
+<script>
+  var PA = 2.91, PE = 4.37, COEF = 1;
+  function eur(n) {
+    return n.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
+  }
+  function calcul() {
+    var pm = parseFloat(document.getElementById('pm1').value) || 0;
+    var pa = pm * PA * COEF, pe = pm * PE * COEF;
+    document.getElementById('pa1').textContent = eur(pa);
+    document.getElementById('pe1').textContent = eur(pe);
+    document.getElementById('pt1').textContent = eur(pa + pe);
+    document.getElementById('grand').textContent = eur(pa + pe);
+  }
+  document.getElementById('pm1').addEventListener('input', calcul);
+  calcul();
+</script>
+</body>
+</html>
