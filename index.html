@@ -17,15 +17,14 @@
     background: #f4f4f5;
   }
   * { box-sizing: border-box; }
-  /* Fond photo : image "fond.jpg" déposée dans le même dossier que index.html.
-     Le pseudo-élément ::before crée un voile blanc translucide pour garder le texte lisible. */
+  /* Fond habillé : photo avec voile léger pour garder le simulateur lisible */
   body { margin: 0; padding: 24px; background-color: #f4f4f5; }
   body::before {
     content: "";
     position: fixed;
     inset: 0;
     z-index: -2;
-    background-image: url("https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1920&q=80");
+    background-image: url("fond.jpg");
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -35,7 +34,16 @@
     position: fixed;
     inset: 0;
     z-index: -1;
-    background: rgba(253, 246, 240, 0.35);
+    background: rgba(253, 246, 240, 0.78);
+  }
+
+  /* Bandeau photo dans la carte : photo entière, nette, jamais coupée bizarrement */
+  .photo-bandeau {
+    display: block;
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+    object-position: center;
   }
 
   /* Logo institutionnelle recréé (fond blanc : version de base de la charte) */
@@ -49,7 +57,7 @@
   }
 
   .card {
-    max-width: 780px; margin: 0 auto; background: #fff;
+    max-width: 640px; margin: 0 auto; background: rgba(255, 255, 255, 0.96);
     border-top: 6px solid var(--rose);
     box-shadow: 0 6px 24px rgba(26, 23, 27, 0.28);
   }
@@ -103,6 +111,7 @@
 <body>
 
 <div class="card">
+  <img class="photo-bandeau" src="fond.jpg" alt="Prenons la vie côté Roubaix" />
   <div class="card-header">
     <div>
       <h1>Simulateur <span>Titre Restaurant</span></h1>
